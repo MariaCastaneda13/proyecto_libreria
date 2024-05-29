@@ -1,12 +1,12 @@
 import fs from "fs";
-import crypto from "crypto";
+import crypto from "crypto"; 
 
 class CartsManager {
     constructor() {
         this.path = "./data/carts.json";
         this.init();
     }
-
+//Se inicia el carrito 
     init() {
         const exists = fs.existsSync(this.path);
         if (!exists) {
@@ -17,7 +17,7 @@ class CartsManager {
             console.log("The file already exists");
         }
     }
-
+// Se crea nuevo carrito
     async create() {
         const cart = {
             id: crypto.randomBytes(12).toString("hex"),
@@ -31,7 +31,7 @@ class CartsManager {
         console.log("The cart was created correctly");
         return cart;
     }
-
+// Se leen todos los carritos
     async read() {
         let carts = await fs.promises.readFile(this.path, "utf-8");
         carts = JSON.parse(carts);
@@ -49,7 +49,7 @@ class CartsManager {
             return error;
         }
     }
-
+//Se agrega un producto a un carrito
     async addProduct(cartId, productId) {
         try {
             let carts = await fs.promises.readFile(this.path, "utf-8");
