@@ -17,7 +17,7 @@ class ProductsManager {
         }
     }
 
-
+//Se crea un producto
     async create(data) {
         const product = {
             id: crypto.randomBytes(12).toString("hex"),
@@ -27,7 +27,7 @@ class ProductsManager {
             price: data.price,
             stock: data.stock
         };
-
+//Se hace la verificación de que todos los datos estén presentes
         if (!data.title || !data.photo || !data.category || !data.price || !data.stock) { console.log("The product has not been created, please enter all data.") }
         else {
             let products = await fs.promises.readFile(this.path, "utf-8")
@@ -44,7 +44,7 @@ class ProductsManager {
         products = JSON.parse(products)
         return products;
     }
-
+//Se busca el artículo mediante su id
     async readOne(id) {
        try{
         let all = await fs.promises.readFile(this.path, "utf-8");
@@ -57,6 +57,8 @@ class ProductsManager {
        
     }
 }
+
+//Se actualiza el producto mediante su id
 async update(id,data) {
     try{
     const one = this.readOne(id)
@@ -66,6 +68,7 @@ async update(id,data) {
         return error
     }
 }
+//Se elimina el producto por su id
     async destroy(id) {
         let products = await fs.promises.readFile(this.path, "utf-8")
         users = JSON.parse(products)
