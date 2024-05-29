@@ -4,7 +4,7 @@ import CartsManager from '../data/cartsManager.js';
 const router = Router();
 
 router.post('/', async (req, res) => {
-    const cart = await cartsManager.create();
+    const cart = await CartsManager.create();
     res.status(201).json(cart);
 });
 
@@ -18,7 +18,7 @@ router.get('/:cid', async (req, res) => {
 });
 
 router.post('/:cid/product/:pid', async (req, res) => {
-    const cart = await cartsManager.addProduct(req.params.cid, req.params.pid);
+    const cart = await CartsManager.addProduct(req.params.cid, req.params.pid);
     if (cart) {
         res.json(cart);
     } else {
