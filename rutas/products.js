@@ -1,20 +1,47 @@
-const express = require('express');
-const router = express.Router();
-const productsController = require('../controllers/productsController');
+import { Router } from 'express';
+import ProductsManager from '../data/productManager.js';
 
-// List all products
-router.get('/', productsController.getAllProducts);
+const router = Router();
 
-// Get a product by ID
-router.get('/:pid', productsController.getProductById);
+router.get('/', async (req, res) => {
+    const products = await ProductsManager.read();
+    res.json(products);
+});
 
-// Add a new product
-router.post('/', productsController.addProduct);
+router.get('/:pid', async (req, res) => {
+    const product = await ProductsManager.readOne(req.params.pid);
+    if (product) {
+        res.json(product);
+    } else {
+        res.status(404).json({ error: 'Product not found' });
+    }
+});
 
-// Update a product by ID
-router.put('/:pid', productsController.updateProduct);
+router.post('/', async (req, res) => {
+    const product = await ProductsManager.create(req.body);
+    if (product) {
+        res.status(201).json(product);
+    } else {
+        res.status(400).json({ error: 'Invalid product data' });
+    }
+});
 
-// Delete a product by ID
-router.delete('/:pid', productsController.deleteProduct);
+router.put('/:pid', async (req, res) => {
+    const updatedProduct = await ProductsManager.update(req.params.pid, req.body);
+    if (updatedProduct) {
+        res.json(updatedProduct);
+    } else {
+        res.status(404).json({ error: 'Product not found or invalid data' });
+    }
+});
 
-module.exports = router;
+router.delete('/:pid', async (req, res) => {
+    const result = await ProductsManager.destroy(req.params.pid);
+    if (result) {
+        res.json({ message: 'Product deleted' });
+    } else {
+        res.status(404).json({ error: 'Product not found' });
+    }
+});
+
+export default router;

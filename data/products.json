@@ -1,0 +1,82 @@
+[
+  {
+    "id": "cac3361b2f04f60013dc189b",
+    "title": "Harry Potter y la piedra filosofal",
+    "photo": "HP.jpg",
+    "category": "Fantasía",
+    "price": 100000,
+    "stock": 10
+  },
+  {
+    "id": "f28807ac65591130ea5996b4",
+    "title": "En agosto nos vemos",
+    "photo": "EANV.jpg",
+    "category": "Universal",
+    "price": 65000,
+    "stock": 5
+  },
+  {
+    "id": "e368344f9da72a30be1540c0",
+    "title": "La ciudad y sus muros inciertos",
+    "photo": "LCNI.jpg",
+    "category": "Universal",
+    "price": 79000,
+    "stock": 12
+  },
+  {
+    "id": "e8cb4399920348d9f71d0043",
+    "title": "Recupera tu mente,reconquista tu vida",
+    "photo": "RTMRTV.jpg",
+    "category": "Autoayuda",
+    "price": 65000,
+    "stock": 4
+  },
+  {
+    "id": "a3416f8c6d14eedbe8b5b1f7",
+    "title": "Kindle Paper White",
+    "photo": "Kindle.jpg",
+    "category": "Electronics",
+    "price": 900000,
+    "stock": 15
+  },
+  {
+    "id": "9cf7a03c2e6ec1f5e25e54fc",
+    "title": "Paper Towns",
+    "photo": "PaperT.jpg",
+    "category": "Juvenil",
+    "price": 57000,
+    "stock": 30
+  },
+  {
+    "id": "b9ec2f306f5d8cf4efb3f0f7",
+    "title": "El Diario de Ana Frank",
+    "photo": "EDDAF.jpg",
+    "category": "Historia",
+    "price": 68000,
+    "stock": 10
+  },
+  {
+    "id": "8c512f95b587a3157c66414c",
+    "title": "Game Of Thrones",
+    "photo": "GOT.jpg",
+    "category": "Ficción",
+    "price": 98000,
+    "stock": 12
+  },
+  {
+    "id": "06a54ee8622f6ba743505e57",
+    "title": "The 100",
+    "photo": "T100.jpg",
+    "category": "Ficción",
+    "price": 63000,
+    "stock": 9
+  },
+  {
+    "id": "7ac8f30468028b3410934766",
+    "title": "Our Common Future",
+    "photo": "OCF.jpg",
+    "category": "Biologia",
+    "price": 110000,
+    "stock": 24
+  }
+]

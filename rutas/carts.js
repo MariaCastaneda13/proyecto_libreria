@@ -1,14 +1,29 @@
-const express = require('express');
-const router = express.Router();
-const cartsController = require('../controllers/cartsController');
+import { Router } from 'express';
+import CartsManager from '../data/cartsManager.js';
 
-// Create a new cart
-router.post('/', cartsController.createCart);
+const router = Router();
 
-// Get products in a cart by ID
-router.get('/:cid', cartsController.getCartById);
+router.post('/', async (req, res) => {
+    const cart = await cartsManager.create();
+    res.status(201).json(cart);
+});
 
-// Add a product to a cart
-router.post('/:cid/product/:pid', cartsController.addProductToCart);
+router.get('/:cid', async (req, res) => {
+    const cart = await CartsManager.readOne(req.params.cid);
+    if (cart) {
+        res.json(cart.products);
+    } else {
+        res.status(404).json({ error: 'Cart not found' });
+    }
+});
 
-module.exports = router;
+router.post('/:cid/product/:pid', async (req, res) => {
+    const cart = await cartsManager.addProduct(req.params.cid, req.params.pid);
+    if (cart) {
+        res.json(cart);
+    } else {
+        res.status(404).json({ error: 'Cart or product not found' });
+    }
+});
+
+export default router;
