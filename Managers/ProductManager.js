@@ -127,5 +127,5 @@ async addProduct(product){
 }
 
 export const productManager = new ProductManager(
-  path.resolve(__dirname, "..\data\products.json")
+  path.resolve(__dirname, "./data/products.json")
 );
