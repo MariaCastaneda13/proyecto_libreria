@@ -1,47 +1,107 @@
-import { Router } from 'express';
-import ProductsManager from '../data/productManager.js';
+import { Router } from "express";
+import{productManager} from "../Managers/ProductManager.js";
 
 const router = Router();
 
-router.get('/', async (req, res) => {
-    const products = await ProductsManager.read();
-    res.json(products);
-});
-//se obtiene un producto por su id
-router.get('/:pid', async (req, res) => {
-    const product = await ProductsManager.readOne(req.params.pid);
-    if (product) {
-        res.json(product);
-    } else {
-        res.status(404).json({ error: 'Product not found' });
-    }
-});
-//se agrega nuevo producto
-router.post('/', async (req, res) => {
-    const product = await ProductsManager.create(req.body);
-    if (product) {
-        res.status(201).json(product);
-    } else {
-        res.status(400).json({ error: 'Invalid product data' });
-    }
-});
-//se actualiza el producto
-router.put('/:pid', async (req, res) => {
-    const updatedProduct = await ProductsManager.update(req.params.pid, req.body);
-    if (updatedProduct) {
-        res.json(updatedProduct);
-    } else {
-        res.status(404).json({ error: 'Product not found or invalid data' });
-    }
-});
-//se elimina el producto
-router.delete('/:pid', async (req, res) => {
-    const result = await ProductsManager.destroy(req.params.pid);
-    if (result) {
-        res.json({ message: 'Product deleted' });
-    } else {
-        res.status(404).json({ error: 'Product not found' });
-    }
+router.get("/", (req, res) => {
+  res.json(productManager.getProducts());
 });
 
-export default router;
+router.get("/:id", (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const product = productManager.getProductById(id);
+
+    res.json(product);
+  } catch (error) {
+    return res.status(404).json({
+      error: "Product not found",
+    });
+  }
+});
+
+router.post("/", async (req, res) => {
+  const { title, price, photo, code, stock } = req.body;
+
+  if (!title || !price || !photo || !code || !stock) {
+    return res.status(400).json({
+      error: "All fields are required",
+    });
+  }
+
+  const product = new Product(
+    title,
+    price,
+    photo,
+    code,
+    stock
+  );
+
+  try {
+    await productManager.addProduct(product);
+
+    res.status(201).json(product);
+  } catch (error) {
+    return res.status(400).json({
+      error: `Could not add the product: ${error.message}`,
+    });
+  }
+});
+
+router.put("/:id", async (req, res) => {
+  const { id } = req.params;
+  const { title, price, photo, code, stock, status } =
+    req.body;
+
+  try {
+    const product = productManager.getProductById(Number(id));
+
+    if (!product) {
+      return res.status(404).json({
+        error: "Product not found",
+      });
+    }
+
+    await productManager.updateProduct(id, {
+      title,
+      price,
+      photo,
+      code,
+      stock,
+      status,
+    });
+
+    const newProduct = productManager.getProductById(Number(id));
+
+    res.json(newProduct);
+  } catch (error) {
+    return res.status(400).json({
+      error: `Could not update the product: ${error.message}`,
+    });
+  }
+});
+
+router.delete("/:id", async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const product = productManager.getProductById(Number(id));
+
+    if (!product) {
+      return res.status(404).json({
+        error: "Product not found",
+      });
+    }
+
+    await productManager.deleteProduct(Number(id));
+
+    res.json(product);
+  } catch (error) {
+    return res.status(400).json({
+      error: `The product was unable to remove: ${error.message}`,
+    });
+  }
+});
+
+export default Router;
