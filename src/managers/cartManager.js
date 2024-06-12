@@ -1,5 +1,4 @@
 import fs from "fs";
-import crypto from "crypto"; 
 import {productManager} from "../managers/ProductManager.js";
 import Cart from "../clases/Cart.js";
 import __dirname from "../dirname.js";
