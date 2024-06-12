@@ -1,5 +1,6 @@
 import { Router } from "express";
 import{productManager} from "../managers/ProductManager.js";
+import Product from "../Clases/Product.js"
 
 const router = Router();
 
@@ -22,9 +23,9 @@ router.get("/:id", (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  const { title, price, photo, code, stock } = req.body;
+  const { title, description, photo, price, code, stock } = req.body;
 
-  if (!title || !price || !photo || !code || !stock) {
+  if (!title || photo || !category || !price || !code || !stock) {
     return res.status(400).json({
       error: "All fields are required",
     });
@@ -32,8 +33,9 @@ router.post("/", async (req, res) => {
 
   const product = new Product(
     title,
-    price,
+    description,
     photo,
+    price,
     code,
     stock
   );
@@ -51,7 +53,7 @@ router.post("/", async (req, res) => {
 
 router.put("/:id", async (req, res) => {
   const { id } = req.params;
-  const { title, price, photo, code, stock, status } =
+  const { title, description, photo, price, code, stock, status } =
     req.body;
 
   try {
@@ -65,8 +67,9 @@ router.put("/:id", async (req, res) => {
 
     await productManager.updateProduct(id, {
       title,
+      description, 
+      photo, 
       price,
-      photo,
       code,
       stock,
       status,
@@ -104,4 +107,4 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
-export default Router;
+export default router;
