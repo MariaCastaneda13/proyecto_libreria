@@ -102,8 +102,9 @@ async addProduct(product){
     const newProduct = {
       id: Number(idProduct),
       title: product.title || productOld.title,
-      price: product.price || productOld.price,
+      description: product.description || productOld.description,
       photo: product.photo || productOld.photo,
+      price: product.price || productOld.price,
       code: product.code || productOld.code,
       stock: product.stock || productOld.stock,
       status: product.status ?? productOld.status,

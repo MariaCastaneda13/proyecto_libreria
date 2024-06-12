@@ -1,6 +1,6 @@
 [
   {
-    "id": "1",
+    "id": 1,
     "title": "Harry Potter y la piedra filosofal",
     "description": "Description 1",
     "photo": "HP.jpg",
@@ -9,7 +9,7 @@
     "stock": 10
   },
   {
-    "id": "2",
+    "id": 2,
     "title": "En agosto nos vemos",
     "description":"Description 2",
     "photo": "EANV.jpg",
@@ -18,7 +18,7 @@
     "stock": 5
   },
   {
-    "id": "3",
+    "id": 3,
     "title": "La ciudad y sus muros inciertos",
     "description":"Description 3",
     "photo": "LCNI.jpg",
@@ -27,7 +27,7 @@
     "stock": 12
   },
   {
-    "id": "4",
+    "id": 4,
     "title": "Recupera tu mente,reconquista tu vida",
     "description": "Description 4",
     "photo": "RTMRTV.jpg",
@@ -36,7 +36,7 @@
     "stock": 4
   },
   {
-    "id": "5",
+    "id": 5,
     "title": "Kindle Paper White",
     "description": "Description 5",
     "photo": "Kindle.jpg",
@@ -45,7 +45,7 @@
     "stock": 15
   },
   {
-    "id": "6",
+    "id": 6,
     "title": "Paper Towns",
     "description": "Description 6",
     "photo": "PaperT.jpg",
@@ -54,7 +54,7 @@
     "stock": 30
   },
   {
-    "id": "7",
+    "id": 7,
     "title": "El Diario de Ana Frank",
     "description": "Description 7",
     "photo": "EDDAF.jpg",
@@ -63,7 +63,7 @@
     "stock": 10
   },
   {
-    "id": "8",
+    "id": 8,
     "title": "Game Of Thrones",
     "description": "Description 8",
     "photo": "GOT.jpg",
@@ -72,7 +72,7 @@
     "stock": 12
   },
   {
-    "id": "9",
+    "id": 9,
     "title": "The 100",
     "description":"Description 9",
     "photo": "T100.jpg",
@@ -81,7 +81,7 @@
     "stock": 9
   },
   {
-    "id": "10",
+    "id": 10,
     "title": "Our Common Future",
     "description": "Description 10",
     "photo": "OCF.jpg",

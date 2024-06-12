@@ -25,7 +25,7 @@ router.get("/:id", (req, res) => {
 router.post("/", async (req, res) => {
   const { title, description, photo, price, code, stock } = req.body;
 
-  if (!title || photo || !category || !price || !code || !stock) {
+  if (!title || !photo || !category || !price || !code || !stock) {
     return res.status(400).json({
       error: "All fields are required",
     });
