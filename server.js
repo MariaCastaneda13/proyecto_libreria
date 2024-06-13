@@ -38,9 +38,21 @@ app.use("/", viewsRutas);
 const httpServer=app.listen(PORT, ()=>{
   console.log(`Server running on Port http://localhost:${PORT}`);
   });
+//Mensajes
+const mensajes = [];
+
 
   //Socket.io
-const io=new Server(httpServer);
+
+  const io=new Server(httpServer);
 io.on("connection", (socket)=>{
   console.log("Nuevo cliente conectado",socket.id);
+
+  socket.on("message",(data)=>{
+    console.log(data);
+    mensajes.push({
+      socketid:socketid,
+      mensaje:data,
+    })
+  });
 });
