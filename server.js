@@ -1,14 +1,22 @@
 import express from "express";
-import indexRoutes from "./rutas/Index.js";
+import{Server} from "socket.io";
 import __dirname from "./dirname.js";
 import handlebars from "express-handlebars";
+import viewsRutas from "./rutas/views.rutas.js";
+import productRutas, {productManager} from "./rutas/products.js";
+
 import path from "path";
-import viewsRutas from "./rutas/views.rutas.js"
-import{Server} from "socket.io";
+//import indexRoutes from "./rutas/Index.js";
+
 
 const app = express();
 
 const PORT = 8080;
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.resolve(__dirname,"./public")));
+
 // Handlebars 
 app.engine(
     "hbs",
@@ -21,38 +29,16 @@ app.engine(
 app.set("view engine", "hbs");
 app.set("views", `${__dirname}/views`);
 
-//Endpoints
-app.use("/api", indexRoutes);
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.resolve(__dirname,"./public")));
+app.use("/",viewsRutas);
+app.use("/api/products",productRutas);
 
-//Rutas
-app.get("/", (req, res) => { 
-  const data={ name: "Maria"};
-  res.render("index", data);
-});
-app.use("/", viewsRutas);
-
-
-const httpServer=app.listen(PORT, ()=>{
+const server=app.listen(PORT, ()=>{
   console.log(`Server running on Port http://localhost:${PORT}`);
   });
-//Mensajes
-const mensajes = [];
 
-
-  //Socket.io
-
-  const io=new Server(httpServer);
+//Socket.io
+export const io=new Server(server);
 io.on("connection", (socket)=>{
-  console.log("Nuevo cliente conectado",socket.id);
-
-  socket.on("message",(data)=>{
-    console.log(data);
-    mensajes.push({
-      socketid:socketid,
-      mensaje:data,
-    })
-  });
+  console.log("New client connected",socket.id);
+socket.emit("products",products);
 });

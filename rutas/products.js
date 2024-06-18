@@ -1,110 +1,83 @@
 import { Router } from "express";
-import{productManager} from "../managers/ProductManager.js";
-import Product from "../clases/Product.js"
+import {io} from "../server.js";
 
 const router = Router();
 
+export const productManager=[];
+
 router.get("/", (req, res) => {
-  res.json(productManager.getProducts());
+  res.json(productManager);
 });
 
 router.get("/:id", (req, res) => {
   const { id } = req.params;
 
-  try {
-    const product = productManager.getProductById(id);
-
-    res.json(product);
-  } catch (error) {
-    return res.status(404).json({
+    const product = productManager.find((product)=>product.id===id);
+    if(!product){
+     return res.status(404).json({
       error: "Product not found",
     });
   }
+  res.json(product);
 });
 
-router.post("/", async (req, res) => {
-  const { title, description, photo, price, code, stock } = req.body;
+router.post("/", (req, res) => {
+  const { id, title, description, photo, price, code, stock } = req.body;
 
-  if (!title || !photo || !category || !price || !code || !stock) {
+  if (!id|| !title || !description|| !photo || !price || !code || !stock) {
     return res.status(400).json({
       error: "All fields are required",
     });
   }
 
-  const product = new Product(
+  const productExists=productManager.find((product)=>product.id===Number(id));
+  if(productExists){
+    return res.status(404).json({
+      error:"The product already exist",
+      });
+    }
+const product ={
+    id,
     title,
     description,
     photo,
     price,
     code,
-    stock
-  );
+    stock,
+  };
+productManager.push(product);
 
-  try {
-    await productManager.addProduct(product);
-
-    res.status(201).json(product);
-  } catch (error) {
-    return res.status(400).json({
-      error: `Could not add the product: ${error.message}`,
-    });
-  }
+io.emit("products",productManager);
+  res.status(201).json(product);
 });
 
-router.put("/:id", async (req, res) => {
+ router.put("/:id", async (req, res) => {
   const { id } = req.params;
-  const { title, description, photo, price, code, stock, status } =
-    req.body;
+  const product =req.body;
 
-  try {
-    const product = productManager.getProductById(Number(id));
+  const productDB=productManager.find((product)=>product.id===Number(id));
 
-    if (!product) {
-      return res.status(404).json({
-        error: "Product not found",
-      });
+  if(!productDB){
+    return res.status(404).json({error:"product not found"});
     }
-
-    await productManager.updateProduct(id, {
-      title,
-      description, 
-      photo, 
-      price,
-      code,
-      stock,
-      status,
-    });
-
-    const newProduct = productManager.getProductById(Number(id));
-
-    res.json(newProduct);
-  } catch (error) {
-    return res.status(400).json({
-      error: `Could not update the product: ${error.message}`,
-    });
-  }
-});
-
+    const index =productManager.indexOf(productDB);
+    productManager[index]=product;
+    io.emit("products",productManager);
+    return res.json(product);
+  });
 router.delete("/:id", async (req, res) => {
   const { id } = req.params;
 
-  try {
-    const product = productManager.getProductById(Number(id));
-
-    if (!product) {
+    const productDB = productManager.find((product)=>product.id===Number(id));
+    
+    if (!productDB) {
       return res.status(404).json({
-        error: "Product not found",
-      });
+        error: "Product not found"});
     }
-
-    await productManager.deleteProduct(Number(id));
-
-    res.json(product);
-  } catch (error) {
-    return res.status(400).json({
-      error: `The product was unable to remove: ${error.message}`,
-    });
-  }
-});
-
-export default router;
+    const index=productManager.indexOf(productDB);
+    productManager.splice(index,1);
+    io.emit("products",productManager);
+    return res.json ({error: "The product was deleted"});
+  });
+  export default router;
+  

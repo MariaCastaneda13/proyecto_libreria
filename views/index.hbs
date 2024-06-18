@@ -1,11 +1,21 @@
 <div>
   <h1>Welcome {{name}} to The Galactic Bookshelf </h1>
 
-  <input type="text" placeholder="Write your message here" id="input">
-  <button id="enviar">Send</button>
-
-  <ul id="mensajes"></ul>
-</div>
-
-<script src="/socket.io/socket.io.js"></script>
-<script src="/js/main.js"></script>
+<table>
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Titulo</th>
+      <th>Precio</th> 
+    </tr>
+  </thead>
+  <tbody>
+    {{#each products}}
+      <tr>
+        <td>{{this.id}}</td>
+        <td>{{this.title}}</td>
+        <td>{{this.price}}</td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
