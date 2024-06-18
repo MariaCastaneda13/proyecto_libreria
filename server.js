@@ -17,6 +17,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.resolve(__dirname,"./public")));
 
+//Rutas
+app.get("/", (req, res) => { 
+  const data={ name: "Maria"};
+  res.render("index", data);
+});
+app.use("/", viewsRutas);
 // Handlebars 
 app.engine(
     "hbs",
