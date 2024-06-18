@@ -5,8 +5,6 @@ import handlebars from "express-handlebars";
 import viewsRutas from "./rutas/views.rutas.js";
 import productRutas, {productManager} from "./rutas/products.js";
 import path from "path";
-//import indexRoutes from "./rutas/Index.js";
-
 
 const app = express();
 

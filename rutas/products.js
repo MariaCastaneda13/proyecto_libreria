@@ -32,7 +32,7 @@ router.post("/", (req, res) => {
 
   const productExists=productManager.find((product)=>product.id===Number(id));
   if(productExists){
-    return res.status(400).json({
+    return res.status(4000).json({
       error:"The product already exist",
       });
     }
