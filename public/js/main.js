@@ -1,27 +1,52 @@
 const socket=io();
 console.log("Welcome to the Galactic Bookshelf");
-const input = document.getElementById("input");
-const enviar = document.getElementById("enviar");
-enviar.addEventListener("click",()=>{
-    socket.emit("message",input.value);
-    input.value="";
+
+
+socket.on("products", (data) => {
+  console.log("Products", data);
+
+  if (data.length > 0) {
+    showProducts(data);
+  }
 });
 
-enviar.addEventListener("click", () => {
-  socket.emit("message", input.value);
+function showProducts(products) {
+  const tbody = document.querySelector("tbody");
 
-  input.value = "";
-});
+  tbody.innerHTML = "";
 
-socket.on("mensajes", (mensajes) => {
-  const mensajesUl = document.getElementById("mensajes");
+  products.forEach((product) => {
+    const tr = document.createElement("tr");
 
-  mensajesUl.innerHTML = "";
+    const tdId = document.createElement("td");
+    tdId.innerText = product.id;
 
-  mensajes.forEach((mensajes) => {
-    const li = document.createElement("li");
-    li.innerText = `${mensajes.socketid}: ${mensajes.mensaje}`;
+    const tdTitle = document.createElement("td");
+    tdTitle.innerText = product.title;
 
-    mensajesUl.appendChild(li);
+    const tdDescription = document.createElement("td");
+    tdDescription.innerText = product.tdDescription;
+
+    const tdPhoto = document.createElement("td");
+    tdPhoto.innerText = product.tdPhoto;
+
+    const tdPrice = document.createElement("td");
+    tdPrice.innerText = product.price;
+
+    const tdCode = document.createElement("td");
+    tdCode.innerText = product.code;
+
+    const tdStock = document.createElement("td");
+    tdStock.innerText = product.stock;
+
+    tr.appendChild(tdId);
+    tr.appendChild(tdTitle);
+    tr.appendChild(tdDescription);
+    tr.appendChild(tdPhoto);
+    tr.appendChild(tdPrice);
+    tr.appendChild(tdCode);
+    tr.appendChild(tdStock);
+
+    tbody.appendChild(tr);
   });
-});
+}
