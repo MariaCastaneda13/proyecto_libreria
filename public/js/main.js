@@ -1,5 +1,5 @@
 const socket=io();
-console.log(socket);
+console.log("Welcome to the Galactic Bookshelf");
 const input = document.getElementById("input");
 const enviar = document.getElementById("enviar");
 enviar.addEventListener("click",()=>{
