@@ -10,12 +10,12 @@ socket.on("products", (data) => {
   }
 });
 
-function showProducts(products) {
+function showProducts(productManager) {
   const tbody = document.querySelector("tbody");
 
   tbody.innerHTML = "";
 
-  products.forEach((product) => {
+  productManager.forEach((product) => {
     const tr = document.createElement("tr");
 
     const tdId = document.createElement("td");
