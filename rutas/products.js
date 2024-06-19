@@ -26,14 +26,14 @@ router.post("/", (req, res) => {
 
   if (!id|| !title || !description|| !photo || !price || !code || !stock) {
     return res.status(400).json({
-      error: "All fields are required",
+      message: "All fields are required",
     });
   }
 
   const productExists=productManager.find((product)=>product.id===Number(id));
   if(productExists){
     return res.status(404).json({
-      error:"The product already exist",
+      message:"The product already exist",
       });
     }
 const product ={
