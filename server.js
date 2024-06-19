@@ -6,6 +6,7 @@ import viewsRutas from "./rutas/views.rutas.js";
 import productRutas, {productManager} from "./rutas/products.js";
 import path from "path";
 
+
 const app = express();
 
 const PORT = 8080;
@@ -43,5 +44,5 @@ const server=app.listen(PORT, ()=>{
 export const io=new Server(server);
 io.on("connection", (socket)=>{
   console.log("New client connected",socket.id);
-socket.emit("products",productManager);
+socket.emit("productManager",productManager);
 });

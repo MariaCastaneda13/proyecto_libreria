@@ -2,7 +2,7 @@ const socket=io();
 console.log("Welcome to the Galactic Bookshelf");
 
 
-socket.on("products", (data) => {
+socket.on("productManager", (data) => {
   console.log("Products", data);
 
   if (data.length > 0) {
