@@ -32,7 +32,7 @@ router.post("/", (req, res) => {
 
   const productExists=productManager.find((product)=>product.id===Number(id));
   if(productExists){
-    return res.status(4000).json({
+    return res.status(404).json({
       error:"The product already exist",
       });
     }
@@ -77,7 +77,7 @@ router.delete("/:id", async (req, res) => {
     const index=productManager.indexOf(productDB);
     productManager.splice(index,1);
     io.emit("products",productManager);
-    return res.json ({error: "The product was deleted"});
+    return res.json ({message: "The product was deleted"});
   });
   export default router;
   
