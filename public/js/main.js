@@ -2,7 +2,7 @@ const socket=io();
 console.log("Welcome to the Galactic Bookshelf");
 
 
-socket.on("productManager", (data) => {
+socket.on("products", (data) => {
   console.log("Products", data);
 
   if (data.length > 0) {
@@ -10,7 +10,7 @@ socket.on("productManager", (data) => {
   }
 });
 
-function showProducts(productManager) {
+function showProducts(products) {
   const tbody = document.querySelector("tbody");
 
   tbody.innerHTML = "";

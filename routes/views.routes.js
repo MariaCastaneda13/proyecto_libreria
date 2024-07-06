@@ -7,8 +7,8 @@ router.get("/", (req, res) => {
   res.render("index", {productManager});
 });
 
-router.get("/realTimeProducts", (req, res) => {
-  res.render("realTimeProducts");
+router.get("/realtimeproducts", (req, res) => {
+  res.render("realtimeproducts");
 });
 
 export default router;
